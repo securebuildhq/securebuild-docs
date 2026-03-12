@@ -21,7 +21,7 @@ export function SiteHeader({ onSearchOpen, onAiOpen, showSearch = false, showAi 
   
   const navigation = [
     { name: "Docs", href: "/docs" },
-    { name: "GitHub", href: "https://github.com/securebuild/securebuild", external: true },
+    { name: "GitHub", href: "https://github.com/securebuildhq/securebuild", external: true },
   ]
 
   return (
@@ -117,7 +117,7 @@ export function SiteHeader({ onSearchOpen, onAiOpen, showSearch = false, showAi 
           {/* GitHub Link */}
           <Button variant="ghost" size="icon" asChild className="hidden sm:flex">
             <Link
-              href="https://github.com/securebuild/securebuild"
+              href="https://github.com/securebuildhq/securebuild"
               target="_blank"
               rel="noopener noreferrer"
             >

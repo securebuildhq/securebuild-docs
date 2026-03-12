@@ -36,7 +36,7 @@ export function CTA() {
               className="h-12 px-8 text-base"
             >
               <Link
-                href="https://github.com/securebuild/securebuild"
+                href="https://github.com/securebuildhq/securebuild"
                 target="_blank"
                 rel="noopener noreferrer"
               >

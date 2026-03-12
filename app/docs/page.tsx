@@ -152,7 +152,7 @@ export default function DocsPage() {
             </p>
           </div>
           <Button asChild>
-            <Link href="https://github.com/securebuild/securebuild" target="_blank">
+            <Link href="https://github.com/securebuildhq/securebuild" target="_blank">
               View on GitHub
               <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
