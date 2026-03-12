@@ -10,8 +10,6 @@ const navigation = [
     title: "Getting Started",
     items: [
       { title: "Introduction", href: "/docs" },
-      { title: "Quick Start", href: "/docs/quickstart" },
-      { title: "Installation", href: "/docs/installation" },
     ],
   },
   {
@@ -19,7 +17,7 @@ const navigation = [
     items: [
       { title: "How It Works", href: "/docs/how-it-works" },
       { title: "Supply Chain Security", href: "/docs/supply-chain" },
-      { title: "SBOMs", href: "/docs/sbom" },
+      { title: "Vulnerability Reporting", href: "/docs/vulnerability-reporting" },
       { title: "Attestations", href: "/docs/attestations" },
     ],
   },

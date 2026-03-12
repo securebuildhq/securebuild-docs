@@ -4,7 +4,6 @@ import { Github } from "lucide-react"
 const navigation = {
   project: [
     { name: "Documentation", href: "/docs" },
-    { name: "Quick Start", href: "/docs/quickstart" },
   ],
   community: [
     { name: "GitHub", href: "https://github.com/securebuildhq/securebuild" },

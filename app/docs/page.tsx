@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { ArrowRight, BookOpen, Zap, Terminal, Github } from "lucide-react"
+import { ArrowRight, BookOpen, Github } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { DocsH1, DocsH2, DocsH3, DocsP, DocsUL, DocsLI } from "@/components/docs/typography"
 
@@ -23,23 +23,6 @@ export default function DocsPage() {
 
       {/* Quick Links */}
       <div className="grid sm:grid-cols-2 gap-4 mb-16">
-        <Link
-          href="/docs/quickstart"
-          className="group flex items-start gap-4 p-4 rounded-lg border bg-card hover:border-primary/50 transition-colors"
-        >
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10">
-            <Zap className="h-5 w-5 text-primary" />
-          </div>
-          <div>
-            <h3 className="font-semibold mb-1 group-hover:text-primary transition-colors">
-              Quick Start
-            </h3>
-            <p className="text-sm text-muted-foreground">
-              Coming soon
-            </p>
-          </div>
-        </Link>
-        
         <Link
           href="/docs/how-it-works"
           className="group flex items-start gap-4 p-4 rounded-lg border bg-card hover:border-primary/50 transition-colors"
@@ -164,10 +147,10 @@ export default function DocsPage() {
       <div className="mt-16 pt-8 border-t flex justify-between">
         <div />
         <Link
-          href="/docs/quickstart"
+          href="/docs/how-it-works"
           className="group flex items-center gap-2 text-sm font-medium hover:text-primary transition-colors"
         >
-          Quick Start
+          How It Works
           <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
         </Link>
       </div>

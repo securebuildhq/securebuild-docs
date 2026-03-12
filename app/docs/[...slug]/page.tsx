@@ -80,7 +80,7 @@ export function generateStaticParams() {
   // Generate some placeholder paths for the docs
   const paths = [
     ["supply-chain"],
-    ["sbom"],
+    ["vulnerability-reporting"],
     ["attestations"],
     ["config"],
     ["ci-cd"],

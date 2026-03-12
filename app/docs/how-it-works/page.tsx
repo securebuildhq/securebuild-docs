@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { ArrowLeft, ArrowRight, Eye, Zap, Shield, FileCode } from "lucide-react"
+import { ArrowLeft, ArrowRight, Zap, Shield, FileCode } from "lucide-react"
 import { DocsH1, DocsH2, DocsH3, DocsP, DocsUL, DocsLI } from "@/components/docs/typography"
 
 export default function HowItWorksPage() {
@@ -15,16 +15,15 @@ export default function HowItWorksPage() {
       <DocsH1>How SecureBuild Works</DocsH1>
       
       <p className="text-lg text-muted-foreground mb-12 leading-relaxed max-w-2xl">
-        SecureBuild uses a unique approach to container security: continuous monitoring, 
+        SecureBuild uses a unique approach to container security: patch detection, 
         automatic rebuilding, and cryptographic verification. Here's how it all comes together.
       </p>
 
       {/* Process Diagram */}
       <div className="not-prose my-16">
-        <div className="grid md:grid-cols-4 gap-4">
+        <div className="grid md:grid-cols-3 gap-4">
           {[
-            { icon: Eye, title: "Monitor", description: "Track CVE databases and upstream repos" },
-            { icon: Zap, title: "Detect", description: "Identify when patches become available" },
+            { icon: Zap, title: "Detect", description: "Release tags and package version tracking" },
             { icon: FileCode, title: "Rebuild", description: "Compile from verified source code" },
             { icon: Shield, title: "Deliver", description: "Push secure image with attestations" },
           ].map((step, i) => (
@@ -36,7 +35,7 @@ export default function HowItWorksPage() {
                 <div className="font-semibold mb-1">{step.title}</div>
                 <div className="text-sm text-muted-foreground">{step.description}</div>
               </div>
-              {i < 3 && (
+              {i < 2 && (
                 <div className="hidden md:block absolute top-1/2 -right-2 -translate-y-1/2 z-10">
                   <ArrowRight className="h-4 w-4 text-muted-foreground" />
                 </div>
@@ -46,47 +45,17 @@ export default function HowItWorksPage() {
         </div>
       </div>
 
-      <DocsH2 id="monitoring">1. Continuous Monitoring</DocsH2>
+      <DocsH2 id="detection">1. Patch Detection</DocsH2>
       <DocsP>
-        SecureBuild continuously monitors multiple data sources to track vulnerabilities 
-        and patches:
-      </DocsP>
-      <DocsUL>
-        <DocsLI>
-          <strong>CVE Databases</strong> - NVD, GitHub Security Advisories, and 
-          distribution-specific databases
-        </DocsLI>
-        <DocsLI>
-          <strong>Upstream Repositories</strong> - Git commits, release tags, and 
-          security announcements
-        </DocsLI>
-        <DocsLI>
-          <strong>Package Registries</strong> - npm, PyPI, Maven, and OS package 
-          repositories
-        </DocsLI>
-      </DocsUL>
-      <DocsP>
-        When a vulnerability is disclosed, SecureBuild correlates it with your 
-        configured images and begins tracking for available patches.
-      </DocsP>
-
-      <DocsH2 id="detection">2. Patch Detection</DocsH2>
-      <DocsP>
-        When an upstream project releases a security patch, SecureBuild automatically 
-        detects it through:
+        SecureBuild detects when upstream projects release new versions (including 
+        security patches) through:
       </DocsP>
       <DocsUL>
         <DocsLI>Release tag monitoring on GitHub/GitLab</DocsLI>
         <DocsLI>Package version tracking in registries</DocsLI>
-        <DocsLI>Security advisory correlations</DocsLI>
-        <DocsLI>Commit message analysis for security fixes</DocsLI>
       </DocsUL>
-      <DocsP>
-        The system validates that the patch actually resolves the CVE before 
-        triggering a rebuild, ensuring you don't get false positives.
-      </DocsP>
 
-      <DocsH2 id="rebuilding">3. Secure Rebuilding</DocsH2>
+      <DocsH2 id="rebuilding">2. Secure Rebuilding</DocsH2>
       <DocsP>
         This is where SecureBuild differs from traditional scanners. Instead of just 
         reporting vulnerabilities, we build new images:
@@ -98,9 +67,7 @@ export default function HowItWorksPage() {
         verification:
       </DocsP>
       <DocsUL>
-        <DocsLI>GPG signature verification on releases</DocsLI>
         <DocsLI>SHA256 checksum validation</DocsLI>
-        <DocsLI>Commit signature verification where available</DocsLI>
       </DocsUL>
 
       <DocsH3>Trusted Build Environment</DocsH3>
@@ -110,8 +77,6 @@ export default function HowItWorksPage() {
       <DocsUL>
         <DocsLI>Fresh VM for each build (no persistent state)</DocsLI>
         <DocsLI>Minimal base environment</DocsLI>
-        <DocsLI>Network-restricted during compilation</DocsLI>
-        <DocsLI>Full audit logging</DocsLI>
       </DocsUL>
 
       <DocsH3>SLSA Compliance</DocsH3>
@@ -124,7 +89,7 @@ export default function HowItWorksPage() {
         <DocsLI>Source-to-artifact mapping</DocsLI>
       </DocsUL>
 
-      <DocsH2 id="delivery">4. Secure Delivery</DocsH2>
+      <DocsH2 id="delivery">3. Secure Delivery</DocsH2>
       <DocsP>
         Once built, images are delivered with full supply chain metadata:
       </DocsP>
@@ -138,7 +103,7 @@ export default function HowItWorksPage() {
         <DocsLI>All packages and versions</DocsLI>
         <DocsLI>License information</DocsLI>
         <DocsLI>Dependency relationships</DocsLI>
-        <DocsLI>Build-time vs runtime dependencies</DocsLI>
+        <DocsLI>Runtime dependencies</DocsLI>
       </DocsUL>
 
       <DocsH3>Image Signing</DocsH3>
@@ -149,30 +114,29 @@ export default function HowItWorksPage() {
         <code className="text-sm font-mono">{`cosign verify --key securebuild.pub my-secure-postgres`}</code>
       </pre>
 
-      <DocsH3>Webhook Notifications</DocsH3>
+      <DocsH3>APK repository and image registry</DocsH3>
       <DocsP>
-        When a new image is available, SecureBuild sends webhooks to your configured 
-        endpoints, enabling automatic deployment:
+        <strong>APK repository</strong> — Built packages (APKs produced by Melange) are
+        published to an APK repository that is configured for your deployment. That
+        repository is used when building images that depend on those packages (e.g. as
+        a content-addressed source). The repository URL and public signing key are
+        configured per environment.
       </DocsP>
-      <pre className="not-prose bg-muted rounded-lg p-4 overflow-x-auto my-6">
-        <code className="text-sm font-mono">{`{
-  "event": "image.updated",
-  "image": "securebuild/postgres:16-secure",
-  "digest": "sha256:abc123...",
-  "cves_fixed": ["CVE-2024-1234", "CVE-2024-1235"],
-  "sbom_url": "https://api.securebuild.dev/sbom/...",
-  "attestation_url": "https://api.securebuild.dev/attestation/..."
-}`}</code>
-      </pre>
+      <DocsP>
+        <strong>Image registry</strong> — Built images are pushed to an OCI registry
+        configured for your deployment. Users pull images from that registry—or from an
+        OCI proxy in front of it—and verify them with Cosign as above. The registry
+        host and repository path are configured per environment.
+      </DocsP>
 
       {/* Navigation */}
       <div className="mt-16 pt-8 border-t flex justify-between">
         <Link
-          href="/docs/installation"
+          href="/docs"
           className="group flex items-center gap-2 text-sm font-medium hover:text-primary transition-colors"
         >
           <ArrowLeft className="h-4 w-4 group-hover:-translate-x-1 transition-transform" />
-          Installation
+          Introduction
         </Link>
         <Link
           href="/docs/supply-chain"
