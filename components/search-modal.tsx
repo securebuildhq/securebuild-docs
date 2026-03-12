@@ -22,8 +22,6 @@ const searchResults = [
     category: "Getting Started",
     items: [
       { title: "Introduction", href: "/docs", description: "What is SecureBuild?" },
-      { title: "Quick Start", href: "/docs/quickstart", description: "Get up and running in 5 minutes" },
-      { title: "Installation", href: "/docs/installation", description: "Install SecureBuild CLI" },
     ],
   },
   {
@@ -31,7 +29,7 @@ const searchResults = [
     items: [
       { title: "How It Works", href: "/docs/how-it-works", description: "Understanding the build process" },
       { title: "Supply Chain Security", href: "/docs/supply-chain", description: "Secure your software supply chain" },
-      { title: "SBOMs", href: "/docs/sbom", description: "Software Bill of Materials" },
+      { title: "Vulnerability Reporting", href: "/docs/vulnerability-reporting", description: "CVE scanning and scan results" },
     ],
   },
   {

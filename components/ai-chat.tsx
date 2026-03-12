@@ -31,7 +31,7 @@ const mockResponses: Record<string, string> = {
 2. **Initialize your project**: \`securebuild init\`
 3. **Build your first secure image**: \`securebuild build\`
 
-Check out our [Quick Start guide](/docs/quickstart) for more details.`,
+Check out [How It Works](/docs/how-it-works) for more details.`,
   "github actions": `To integrate SecureBuild with GitHub Actions, add this to your workflow:
 
 \`\`\`yaml
@@ -55,7 +55,7 @@ This helps with:
 - License management`,
   "default": `I can help you with SecureBuild documentation and usage. Try asking about:
 
-- Getting started and installation
+- Getting started
 - CI/CD integration
 - Supply chain security
 - SBOM generation
