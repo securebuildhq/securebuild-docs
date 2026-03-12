@@ -51,7 +51,7 @@ export default async function DocsSlugPage(
             </Link>
           </Button>
           <Button asChild>
-            <Link href="https://github.com/securebuild/securebuild" target="_blank">
+            <Link href="https://github.com/securebuildhq/securebuild" target="_blank">
               Contribute
             </Link>
           </Button>

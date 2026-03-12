@@ -7,17 +7,17 @@ const navigation = {
     { name: "Quick Start", href: "/docs/quickstart" },
   ],
   community: [
-    { name: "GitHub", href: "https://github.com/securebuild/securebuild" },
+    { name: "GitHub", href: "https://github.com/securebuildhq/securebuild" },
     { name: "Contributing", href: "/docs/contributing" },
   ],
   resources: [
-    { name: "Roadmap", href: "#" },
-    { name: "Security", href: "#" },
+    { name: "Roadmap", href: "https://github.com/securebuildhq/securebuild/blob/main/ROADMAP.md" },
+    { name: "Security", href: "https://github.com/securebuildhq/securebuild/blob/main/SECURITY.md" },
   ],
   legal: [
-    { name: "License", href: "#" },
-    { name: "Privacy", href: "#" },
-    { name: "Terms", href: "#" },
+    { name: "License", href: "https://github.com/securebuildhq/securebuild/blob/main/LICENSE" },
+    { name: "Privacy", href: "#" }, // TODO: add when privacy page exists
+    { name: "Terms", href: "#" }, // TODO: add when terms page exists
   ],
 }
 
@@ -50,7 +50,7 @@ export function Footer() {
             </p>
             <div className="flex gap-4">
               <Link
-                href="https://github.com/securebuild/securebuild"
+                href="https://github.com/securebuildhq/securebuild"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-muted-foreground hover:text-foreground transition-colors"
@@ -103,6 +103,8 @@ export function Footer() {
                 <li key={item.name}>
                   <Link
                     href={item.href}
+                    target={item.href.startsWith("http") ? "_blank" : undefined}
+                    rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
                     className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                   >
                     {item.name}
@@ -119,6 +121,8 @@ export function Footer() {
                 <li key={item.name}>
                   <Link
                     href={item.href}
+                    target={item.href.startsWith("http") ? "_blank" : undefined}
+                    rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
                     className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                   >
                     {item.name}
