@@ -1,4 +1,7 @@
+"use client"
+
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { Github } from "lucide-react"
 
 const navigation = {
@@ -15,35 +18,84 @@ const navigation = {
   ],
   legal: [
     { name: "License", href: "https://github.com/securebuildhq/securebuild/blob/main/LICENSE" },
-    { name: "Privacy", href: "#" }, // TODO: add when privacy page exists
-    { name: "Terms", href: "#" }, // TODO: add when terms page exists
   ],
 }
 
+const linkClass = "text-sm text-muted-foreground hover:text-foreground transition-colors"
+
+function NavItem({
+  item,
+  pathname,
+}: {
+  item: { name: string; href: string }
+  pathname: string
+}) {
+  const isInternal = !item.href.startsWith("http")
+  const isCurrent = isInternal && pathname === item.href
+  if (isCurrent) {
+    return (
+      <span className="text-sm text-muted-foreground/60 cursor-default">
+        {item.name}
+      </span>
+    )
+  }
+  return (
+    <Link
+      href={item.href}
+      target={item.href.startsWith("http") ? "_blank" : undefined}
+      rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
+      className={linkClass}
+    >
+      {item.name}
+    </Link>
+  )
+}
+
 export function Footer() {
+  const pathname = usePathname()
   return (
     <footer className="border-t bg-muted/30">
       <div className="container px-4 md:px-8 py-12 md:py-16">
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
           {/* Logo & Description */}
           <div className="col-span-2 md:col-span-1">
-            <Link href="/" className="flex items-center gap-2 mb-4">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  className="h-5 w-5 text-primary-foreground"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                >
-                  <path d="M12 2L4 7v10l8 5 8-5V7l-8-5z" />
-                  <path d="M12 22V12" />
-                  <path d="M12 12L4 7" />
-                  <path d="M12 12l8-5" />
-                </svg>
+            {pathname === "/" ? (
+              <div className="flex items-center gap-2 mb-4 cursor-default">
+                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    className="h-5 w-5 text-primary-foreground"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  >
+                    <path d="M12 2L4 7v10l8 5 8-5V7l-8-5z" />
+                    <path d="M12 22V12" />
+                    <path d="M12 12L4 7" />
+                    <path d="M12 12l8-5" />
+                  </svg>
+                </div>
+                <span className="font-semibold">SecureBuild</span>
               </div>
-              <span className="font-semibold">SecureBuild</span>
-            </Link>
+            ) : (
+              <Link href="/" className="flex items-center gap-2 mb-4">
+                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    className="h-5 w-5 text-primary-foreground"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  >
+                    <path d="M12 2L4 7v10l8 5 8-5V7l-8-5z" />
+                    <path d="M12 22V12" />
+                    <path d="M12 12L4 7" />
+                    <path d="M12 12l8-5" />
+                  </svg>
+                </div>
+                <span className="font-semibold">SecureBuild</span>
+              </Link>
+            )}
             <p className="text-sm text-muted-foreground mb-4">
               Open source container security for the modern software supply chain.
             </p>
@@ -66,12 +118,7 @@ export function Footer() {
             <ul className="space-y-2">
               {navigation.project.map((item) => (
                 <li key={item.name}>
-                  <Link
-                    href={item.href}
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    {item.name}
-                  </Link>
+                  <NavItem item={item} pathname={pathname} />
                 </li>
               ))}
             </ul>
@@ -82,14 +129,7 @@ export function Footer() {
             <ul className="space-y-2">
               {navigation.community.map((item) => (
                 <li key={item.name}>
-                  <Link
-                    href={item.href}
-                    target={item.href.startsWith("http") ? "_blank" : undefined}
-                    rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    {item.name}
-                  </Link>
+                  <NavItem item={item} pathname={pathname} />
                 </li>
               ))}
             </ul>
@@ -100,14 +140,7 @@ export function Footer() {
             <ul className="space-y-2">
               {navigation.resources.map((item) => (
                 <li key={item.name}>
-                  <Link
-                    href={item.href}
-                    target={item.href.startsWith("http") ? "_blank" : undefined}
-                    rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    {item.name}
-                  </Link>
+                  <NavItem item={item} pathname={pathname} />
                 </li>
               ))}
             </ul>
@@ -118,14 +151,7 @@ export function Footer() {
             <ul className="space-y-2">
               {navigation.legal.map((item) => (
                 <li key={item.name}>
-                  <Link
-                    href={item.href}
-                    target={item.href.startsWith("http") ? "_blank" : undefined}
-                    rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    {item.name}
-                  </Link>
+                  <NavItem item={item} pathname={pathname} />
                 </li>
               ))}
             </ul>
