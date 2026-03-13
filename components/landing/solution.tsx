@@ -63,9 +63,9 @@ export function Solution() {
           {features.map((feature, i) => (
             <div
               key={i}
-              className="group relative p-6 rounded-2xl border bg-card hover:border-primary/50 transition-colors"
+              className="relative p-6 rounded-2xl border bg-card"
             >
-              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 mb-4 group-hover:bg-primary/20 transition-colors">
+              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 mb-4">
                 <feature.icon className="h-6 w-6 text-primary" />
               </div>
               <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>

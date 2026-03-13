@@ -65,7 +65,7 @@ export function Problem() {
         <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
           {[
             { value: "70+", label: "Avg CVEs per image" },
-            { value: "15K+", label: "New CVEs in 2024" },
+            { value: "15K+", label: "New CVEs in 2026" },
             { value: "42%", label: "Critical/High severity" },
             { value: "21 days", label: "Avg patch time" },
           ].map((stat, i) => (
