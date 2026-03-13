@@ -164,7 +164,16 @@ export function Footer() {
             Apache 2.0 License.
           </p>
           <p className="text-sm text-muted-foreground">
-            Made with care by folks @ replicated.com.
+            Made with care by folks @{" "}
+            <Link
+              href="https://replicated.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-foreground transition-colors"
+            >
+              replicated.com
+            </Link>
+            .
           </p>
         </div>
       </div>
