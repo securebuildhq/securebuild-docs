@@ -17,7 +17,7 @@ export default function DocsLayout({
 
   return (
     <div className="min-h-screen flex flex-col">
-      <SiteHeader onSearchOpen={() => setSearchOpen(true)} onAiOpen={() => setAiOpen(true)} showSearch={true} showAi={true} />
+      <SiteHeader onSearchOpen={() => setSearchOpen(true)} onAiOpen={() => setAiOpen(true)} showSearch={false} showAi={false} />
       <DocsMobileNav />
       
       <div className="flex-1 container px-4 md:px-8">
