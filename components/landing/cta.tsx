@@ -12,7 +12,7 @@ export function CTA() {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_50%,rgba(34,197,94,0.12),rgba(255,255,255,0))] dark:bg-[radial-gradient(ellipse_80%_50%_at_50%_50%,rgba(34,197,94,0.08),rgba(0,0,0,0))]" />
       </div>
 
-      <div className="container px-4 md:px-8">
+      <div className="w-full px-4 md:px-8">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-6 text-balance">
             Ready to secure your containers?
