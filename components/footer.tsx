@@ -55,7 +55,7 @@ export function Footer() {
   const pathname = usePathname()
   return (
     <footer className="border-t bg-muted/30">
-      <div className="container px-4 md:px-8 py-12 md:py-16">
+      <div className="w-full px-4 md:px-8 py-12 md:py-16">
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
           {/* Logo & Description */}
           <div className="col-span-2 md:col-span-1">

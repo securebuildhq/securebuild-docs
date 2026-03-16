@@ -26,7 +26,7 @@ const problems = [
 export function Problem() {
   return (
     <section className="py-24 md:py-32 bg-muted/30">
-      <div className="container px-4 md:px-8">
+      <div className="w-full px-4 md:px-8">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <div className="inline-flex items-center gap-2 rounded-full border border-destructive/20 bg-destructive/5 px-4 py-1.5 text-sm text-destructive mb-6">
             <AlertTriangle className="h-4 w-4" />
