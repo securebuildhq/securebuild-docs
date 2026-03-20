@@ -27,8 +27,9 @@ export default function ContributingPage() {
         </DocsLI>
         <DocsLI>
           <strong>Code and documentation</strong> — Open a pull request. See{" "}
-          <Link href="/docs/development" className="text-primary hover:underline">Development Setup</Link> for
-          getting the repo running locally, then submit your PR; CI runs tests on pull requests.
+          <Link href="/docs/development" className="text-primary hover:underline">Development environment</Link> and{" "}
+          <Link href="/docs/self-hosted" className="text-primary hover:underline">Self-hosted configuration</Link> for
+          running the stack and configuring services, then submit your PR; CI runs tests on pull requests.
         </DocsLI>
       </DocsUL>
 
@@ -45,7 +46,7 @@ export default function ContributingPage() {
           href="/docs/development"
           className="group flex items-center gap-2 text-sm font-medium hover:text-primary transition-colors"
         >
-          Development Setup
+          Development environment
           <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
         </Link>
       </div>

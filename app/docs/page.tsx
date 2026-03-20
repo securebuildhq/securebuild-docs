@@ -39,6 +39,22 @@ export default function DocsPage() {
             </p>
           </div>
         </Link>
+        <Link
+          href="/docs/self-hosted"
+          className="group flex items-start gap-4 p-4 rounded-lg border bg-card hover:border-primary/50 transition-colors"
+        >
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10">
+            <BookOpen className="h-5 w-5 text-primary" />
+          </div>
+          <div>
+            <h3 className="font-semibold mb-1 group-hover:text-primary transition-colors">
+              Self-hosted configuration
+            </h3>
+            <p className="text-sm text-muted-foreground">
+              YAML and env setup, registry, dev stack
+            </p>
+          </div>
+        </Link>
       </div>
 
       {/* Content */}

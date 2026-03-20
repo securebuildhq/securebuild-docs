@@ -8,9 +8,11 @@ import { ChevronRight } from "lucide-react"
 const navigation = [
   {
     title: "Getting Started",
-    items: [
-      { title: "Introduction", href: "/docs" },
-    ],
+    items: [{ title: "Introduction", href: "/docs" }],
+  },
+  {
+    title: "Self-hosted",
+    items: [{ title: "Self-hosted configuration", href: "/docs/self-hosted" }],
   },
   {
     title: "Core Concepts",
@@ -25,7 +27,7 @@ const navigation = [
     title: "Contributing",
     items: [
       { title: "Contribution Guide", href: "/docs/contributing" },
-      { title: "Development Setup", href: "/docs/development" },
+      { title: "Development environment", href: "/docs/development" },
       { title: "Code of Conduct", href: "/docs/code-of-conduct" },
     ],
   },

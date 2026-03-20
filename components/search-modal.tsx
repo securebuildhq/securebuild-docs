@@ -20,8 +20,16 @@ interface SearchModalProps {
 const searchResults = [
   {
     category: "Getting Started",
+    items: [{ title: "Introduction", href: "/docs", description: "What is SecureBuild?" }],
+  },
+  {
+    category: "Self-hosted",
     items: [
-      { title: "Introduction", href: "/docs", description: "What is SecureBuild?" },
+      {
+        title: "Self-hosted configuration",
+        href: "/docs/self-hosted",
+        description: "YAML/env config, registry, storage, build backends",
+      },
     ],
   },
   {
@@ -30,6 +38,18 @@ const searchResults = [
       { title: "How It Works", href: "/docs/how-it-works", description: "Understanding the build process" },
       { title: "Supply Chain Security", href: "/docs/supply-chain", description: "Secure your software supply chain" },
       { title: "Vulnerability Reporting", href: "/docs/vulnerability-reporting", description: "CVE scanning and scan results" },
+    ],
+  },
+  {
+    category: "Contributing",
+    items: [
+      { title: "Contribution Guide", href: "/docs/contributing", description: "PRs, issues, and how to help" },
+      {
+        title: "Development environment",
+        href: "/docs/development",
+        description: "Nix flake, Docker Swarm dev stack, make targets",
+      },
+      { title: "Code of Conduct", href: "/docs/code-of-conduct", description: "Community standards" },
     ],
   },
   {

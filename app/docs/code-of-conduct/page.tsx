@@ -166,7 +166,7 @@ export default function CodeOfConductPage() {
           className="group flex items-center gap-2 text-sm font-medium hover:text-primary transition-colors"
         >
           <ArrowLeft className="h-4 w-4 group-hover:-translate-x-1 transition-transform" />
-          Development Setup
+          Development environment
         </Link>
         <Link
           href="/docs"
