@@ -28,7 +28,9 @@ export default function ContributingPage() {
         <DocsLI>
           <strong>Code and documentation</strong> — Open a pull request. See{" "}
           <Link href="/docs/development" className="text-primary hover:underline">Development environment</Link> and{" "}
-          <Link href="/docs/self-hosted" className="text-primary hover:underline">Self-hosted configuration</Link> for
+          <Link href="/docs/self-hosted" className="text-primary hover:underline">Self-hosted</Link> docs (see{" "}
+          <Link href="/docs/self-hosted/config-reference" className="text-primary hover:underline">configuration reference</Link>
+          ) for
           running the stack and configuring services, then submit your PR; CI runs tests on pull requests.
         </DocsLI>
       </DocsUL>

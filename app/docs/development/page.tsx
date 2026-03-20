@@ -41,9 +41,13 @@ export default function DevelopmentPage() {
         >
           SecureBuild repository
         </Link>{" "}
-        root. For service configuration (YAML, registry, storage), see{" "}
+        root. For service configuration (YAML, registry, storage), see the{" "}
         <Link href="/docs/self-hosted" className="text-primary hover:underline">
-          Self-hosted configuration
+          Self-hosted
+        </Link>{" "}
+        docs and the{" "}
+        <Link href="/docs/self-hosted/config-reference" className="text-primary hover:underline">
+          configuration reference
         </Link>
         .
       </p>
@@ -90,6 +94,11 @@ registry_password: your-registry-token-or-password
 
 apk_repository: http://localhost:8080  # apk-proxy (published on 8080 in docker-compose)
 
+apk_public_key_name: cve0-signing.rsa.pub
+apk_public_key_data: "<base64 data>"  # replace: base64-encoded public key PEM
+apk_signing_key_data: "<base64 data>"  # replace: base64-encoded private key PEM
+apk_signing_key_name: cve0-signing.rsa.key
+
 r2_endpoint: https://s3.example.com
 r2_access_key: replace-me  # replace with your R2 or S3 access key
 r2_secret_key: replace-me  # replace with your R2 or S3 secret key
@@ -105,10 +114,10 @@ admin_user_password: clear-text-password  # only if SMTP is not configured in th
 
 log_level: info`}</HelpBlock>
       <DocsP>
-        Add APK signing keys, optional <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">static_vms</code>, and
-        other fields from the example file as needed. Field meanings:{" "}
-        <Link href="/docs/self-hosted" className="text-primary hover:underline">
-          Self-hosted configuration
+        Add optional <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">static_vms</code> and other fields
+        from the example file as needed. Field meanings:{" "}
+        <Link href="/docs/self-hosted/config-reference" className="text-primary hover:underline">
+          Configuration reference
         </Link>
         .
       </DocsP>

@@ -48,10 +48,10 @@ export default function DocsPage() {
           </div>
           <div>
             <h3 className="font-semibold mb-1 group-hover:text-primary transition-colors">
-              Self-hosted configuration
+              Self-hosted
             </h3>
             <p className="text-sm text-muted-foreground">
-              YAML and env setup, registry, dev stack
+              Infrastructure, configuration reference, YAML and env
             </p>
           </div>
         </Link>

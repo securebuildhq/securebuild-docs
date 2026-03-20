@@ -12,7 +12,11 @@ const navigation = [
   },
   {
     title: "Self-hosted",
-    items: [{ title: "Self-hosted configuration", href: "/docs/self-hosted" }],
+    items: [
+      { title: "Overview", href: "/docs/self-hosted" },
+      { title: "Infrastructure", href: "/docs/self-hosted/infrastructure" },
+      { title: "Configuration reference", href: "/docs/self-hosted/config-reference" },
+    ],
   },
   {
     title: "Core Concepts",
@@ -33,8 +37,30 @@ const navigation = [
   },
 ]
 
+const allNavItems = navigation.flatMap((s) => s.items)
+
+function navLinkMatches(pathname: string, href: string): boolean {
+  if (pathname === href) return true
+  // Avoid treating every /docs/* page as "Introduction"
+  if (href === "/docs") return false
+  return pathname.startsWith(`${href}/`)
+}
+
+function activeNavHref(pathname: string): string | null {
+  let best: string | null = null
+  for (const { href } of allNavItems) {
+    if (navLinkMatches(pathname, href)) {
+      if (!best || href.length > best.length) {
+        best = href
+      }
+    }
+  }
+  return best
+}
+
 export function DocsSidebar() {
   const pathname = usePathname()
+  const activeHref = activeNavHref(pathname)
 
   return (
     <aside className="hidden lg:block w-64 shrink-0">
@@ -47,7 +73,7 @@ export function DocsSidebar() {
               </h4>
               <ul className="space-y-1">
                 {section.items.map((item) => {
-                  const isActive = pathname === item.href
+                  const isActive = activeHref === item.href
                   return (
                     <li key={item.href}>
                       <Link
@@ -75,16 +101,9 @@ export function DocsSidebar() {
 
 export function DocsMobileNav() {
   const pathname = usePathname()
-
-  // Find current page
-  let currentPage = "Documentation"
-  for (const section of navigation) {
-    const found = section.items.find((item) => item.href === pathname)
-    if (found) {
-      currentPage = found.title
-      break
-    }
-  }
+  const activeHref = activeNavHref(pathname)
+  const foundItem = allNavItems.find((item) => item.href === activeHref)
+  const currentPage = foundItem?.title ?? "Documentation"
 
   return (
     <div className="lg:hidden border-b sticky top-14 z-40 bg-background/80 backdrop-blur-xl">

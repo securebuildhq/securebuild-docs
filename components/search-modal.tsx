@@ -26,9 +26,19 @@ const searchResults = [
     category: "Self-hosted",
     items: [
       {
-        title: "Self-hosted configuration",
+        title: "Self-hosted overview",
         href: "/docs/self-hosted",
-        description: "YAML/env config, registry, storage, build backends",
+        description: "Deploy on your own stack, config loading",
+      },
+      {
+        title: "Infrastructure",
+        href: "/docs/self-hosted/infrastructure",
+        description: "S3, OCI registry, builders, APK keys",
+      },
+      {
+        title: "Configuration reference",
+        href: "/docs/self-hosted/config-reference",
+        description: "Go Param YAML/env and Next.js environment",
       },
     ],
   },
