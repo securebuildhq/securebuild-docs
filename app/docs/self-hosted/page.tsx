@@ -27,8 +27,8 @@ export default function SelfHostedOverviewPage() {
           <Link href="/docs/self-hosted/infrastructure" className="text-primary font-medium hover:underline">
             Infrastructure
           </Link>
-          — required pieces: S3-compatible storage, OCI registry, where builds run (local or static VMs), and the APK
-          HTTP origin plus signing keys.
+          — worker, securebuild-app (Next.js), S3-compatible storage, OCI registry, where builds run (local or static VMs),
+          and the APK HTTP origin plus signing keys.
         </DocsLI>
         <DocsLI>
           <Link href="/docs/self-hosted/config-reference" className="text-primary font-medium hover:underline">

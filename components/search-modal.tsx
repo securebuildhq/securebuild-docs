@@ -23,6 +23,14 @@ const searchResults = [
     items: [{ title: "Introduction", href: "/docs", description: "What is SecureBuild?" }],
   },
   {
+    category: "Core Concepts",
+    items: [
+      { title: "How It Works", href: "/docs/how-it-works", description: "Understanding the build process" },
+      { title: "Supply Chain Security", href: "/docs/supply-chain", description: "Secure your software supply chain" },
+      { title: "Vulnerability Reporting", href: "/docs/vulnerability-reporting", description: "CVE scanning and scan results" },
+    ],
+  },
+  {
     category: "Self-hosted",
     items: [
       {
@@ -33,7 +41,7 @@ const searchResults = [
       {
         title: "Infrastructure",
         href: "/docs/self-hosted/infrastructure",
-        description: "S3, OCI registry, builders, APK keys",
+        description: "Worker, securebuild-app, S3, OCI registry, builders, APK keys",
       },
       {
         title: "Configuration reference",
@@ -43,11 +51,23 @@ const searchResults = [
     ],
   },
   {
-    category: "Core Concepts",
+    category: "Building",
     items: [
-      { title: "How It Works", href: "/docs/how-it-works", description: "Understanding the build process" },
-      { title: "Supply Chain Security", href: "/docs/supply-chain", description: "Secure your software supply chain" },
-      { title: "Vulnerability Reporting", href: "/docs/vulnerability-reporting", description: "CVE scanning and scan results" },
+      {
+        title: "Overview",
+        href: "/docs/building",
+        description: "Packages, images, and how they connect",
+      },
+      {
+        title: "Packages",
+        href: "/docs/building/packages",
+        description: "APK repository, Melange, signing",
+      },
+      {
+        title: "Images",
+        href: "/docs/building/images",
+        description: "OCI registry, pulls, verification",
+      },
     ],
   },
   {

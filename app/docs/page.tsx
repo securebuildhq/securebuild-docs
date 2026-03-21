@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { ArrowRight, BookOpen, Github } from "lucide-react"
+import { ArrowRight, BookOpen, Github, Package } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { DocsH1, DocsH2, DocsH3, DocsP, DocsUL, DocsLI } from "@/components/docs/typography"
 
@@ -22,7 +22,7 @@ export default function DocsPage() {
       </p>
 
       {/* Quick Links */}
-      <div className="grid sm:grid-cols-2 gap-4 mb-16">
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-16">
         <Link
           href="/docs/how-it-works"
           className="group flex items-start gap-4 p-4 rounded-lg border bg-card hover:border-primary/50 transition-colors"
@@ -52,6 +52,22 @@ export default function DocsPage() {
             </h3>
             <p className="text-sm text-muted-foreground">
               Infrastructure, configuration reference, YAML and env
+            </p>
+          </div>
+        </Link>
+        <Link
+          href="/docs/building"
+          className="group flex items-start gap-4 p-4 rounded-lg border bg-card hover:border-primary/50 transition-colors"
+        >
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10">
+            <Package className="h-5 w-5 text-primary" />
+          </div>
+          <div>
+            <h3 className="font-semibold mb-1 group-hover:text-primary transition-colors">
+              Building packages &amp; images
+            </h3>
+            <p className="text-sm text-muted-foreground">
+              APK repository, OCI registry, verification
             </p>
           </div>
         </Link>

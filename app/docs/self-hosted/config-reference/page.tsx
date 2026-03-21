@@ -326,10 +326,10 @@ export default function SelfHostedConfigReferencePage() {
           Infrastructure
         </Link>
         <Link
-          href="/docs/development"
+          href="/docs/building"
           className="group flex items-center gap-2 text-sm font-medium hover:text-primary transition-colors"
         >
-          Development environment
+          Building overview
           <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
         </Link>
       </div>

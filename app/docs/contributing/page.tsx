@@ -38,11 +38,11 @@ export default function ContributingPage() {
       {/* Navigation */}
       <div className="mt-16 pt-8 border-t flex justify-between">
         <Link
-          href="/docs/attestations"
+          href="/docs/building/images"
           className="group flex items-center gap-2 text-sm font-medium hover:text-primary transition-colors"
         >
           <ArrowLeft className="h-4 w-4 group-hover:-translate-x-1 transition-transform" />
-          Attestations
+          Images
         </Link>
         <Link
           href="/docs/development"

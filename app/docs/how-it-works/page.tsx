@@ -120,13 +120,21 @@ export default function HowItWorksPage() {
         published to an APK repository that is configured for your deployment. That
         repository is used when building images that depend on those packages (e.g. as
         a content-addressed source). The repository URL and public signing key are
-        configured per environment.
+        configured per environment. See{" "}
+        <Link href="/docs/building/packages" className="text-primary hover:underline">
+          Building packages
+        </Link>{" "}
+        for more detail.
       </DocsP>
       <DocsP>
         <strong>Image registry</strong> — Built images are pushed to an OCI registry
         configured for your deployment. Users pull images from that registry—or from an
         OCI proxy in front of it—and verify them with Cosign as above. The registry
-        host and repository path are configured per environment.
+        host and repository path are configured per environment. See{" "}
+        <Link href="/docs/building/images" className="text-primary hover:underline">
+          Building container images
+        </Link>{" "}
+        for more detail.
       </DocsP>
 
       {/* Navigation */}

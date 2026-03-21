@@ -11,6 +11,15 @@ const navigation = [
     items: [{ title: "Introduction", href: "/docs" }],
   },
   {
+    title: "Core Concepts",
+    items: [
+      { title: "How It Works", href: "/docs/how-it-works" },
+      { title: "Supply Chain Security", href: "/docs/supply-chain" },
+      { title: "Vulnerability Reporting", href: "/docs/vulnerability-reporting" },
+      { title: "Attestations", href: "/docs/attestations" },
+    ],
+  },
+  {
     title: "Self-hosted",
     items: [
       { title: "Overview", href: "/docs/self-hosted" },
@@ -19,12 +28,11 @@ const navigation = [
     ],
   },
   {
-    title: "Core Concepts",
+    title: "Building",
     items: [
-      { title: "How It Works", href: "/docs/how-it-works" },
-      { title: "Supply Chain Security", href: "/docs/supply-chain" },
-      { title: "Vulnerability Reporting", href: "/docs/vulnerability-reporting" },
-      { title: "Attestations", href: "/docs/attestations" },
+      { title: "Overview", href: "/docs/building" },
+      { title: "Packages", href: "/docs/building/packages" },
+      { title: "Images", href: "/docs/building/images" },
     ],
   },
   {
