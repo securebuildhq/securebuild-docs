@@ -107,8 +107,9 @@ apk_signing_key_name: cve0-signing.rsa.key
 r2_endpoint: https://s3.example.com
 r2_access_key: replace-me  # replace with your R2 or S3 access key
 r2_secret_key: replace-me  # replace with your R2 or S3 secret key
+r2_region: us-east-1 # leave blank for Cloudflare R2
 r2_bucket_name: securebuild
-r2_use_path_style: false
+r2_use_path_style: true
 
 build_backend: local
 

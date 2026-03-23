@@ -160,6 +160,11 @@ export default function SelfHostedConfigReferencePage() {
           { yaml: "r2_access_key", env: "R2_ACCESS_KEY", desc: "Access key ID." },
           { yaml: "r2_secret_key", env: "R2_SECRET_KEY", desc: "Secret access key." },
           { yaml: "r2_endpoint", env: "R2_ENDPOINT", desc: "S3 API endpoint URL." },
+          {
+            yaml: "r2_region",
+            env: "R2_REGION",
+            desc: "SigV4 signing region. Set to your AWS bucket region (e.g. us-east-1) when using Amazon S3. Omit for Cloudflare R2 (defaults to auto).",
+          },
           { yaml: "r2_use_dynamic_folder", env: "R2_USE_DYNAMIC_FOLDER", desc: "Dynamic folder layout flag." },
           { yaml: "r2_use_path_style", env: "R2_USE_PATH_STYLE", desc: "Use path-style addressing (e.g. MinIO)." },
         ]}
