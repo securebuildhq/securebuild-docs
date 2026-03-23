@@ -20,9 +20,7 @@ interface SearchModalProps {
 const searchResults = [
   {
     category: "Getting Started",
-    items: [
-      { title: "Introduction", href: "/docs", description: "What is SecureBuild?" },
-    ],
+    items: [{ title: "Introduction", href: "/docs", description: "What is SecureBuild?" }],
   },
   {
     category: "Core Concepts",
@@ -30,6 +28,58 @@ const searchResults = [
       { title: "How It Works", href: "/docs/how-it-works", description: "Understanding the build process" },
       { title: "Supply Chain Security", href: "/docs/supply-chain", description: "Secure your software supply chain" },
       { title: "Vulnerability Reporting", href: "/docs/vulnerability-reporting", description: "CVE scanning and scan results" },
+    ],
+  },
+  {
+    category: "Self-hosted",
+    items: [
+      {
+        title: "Self-hosted overview",
+        href: "/docs/self-hosted",
+        description: "Deploy on your own stack, config loading",
+      },
+      {
+        title: "Infrastructure",
+        href: "/docs/self-hosted/infrastructure",
+        description: "Worker, securebuild-app, S3, OCI registry, builders, APK keys",
+      },
+      {
+        title: "Configuration reference",
+        href: "/docs/self-hosted/config-reference",
+        description: "Go Param YAML/env and Next.js environment",
+      },
+    ],
+  },
+  {
+    category: "Building",
+    items: [
+      {
+        title: "Overview",
+        href: "/docs/building",
+        description: "Packages, images, and how they connect",
+      },
+      {
+        title: "Packages",
+        href: "/docs/building/packages",
+        description: "APK repository, Melange, signing",
+      },
+      {
+        title: "Images",
+        href: "/docs/building/images",
+        description: "OCI registry, pulls, verification",
+      },
+    ],
+  },
+  {
+    category: "Contributing",
+    items: [
+      { title: "Contribution Guide", href: "/docs/contributing", description: "PRs, issues, and how to help" },
+      {
+        title: "Development environment",
+        href: "/docs/development",
+        description: "Nix flake, Docker Swarm dev stack, make targets",
+      },
+      { title: "Code of Conduct", href: "/docs/code-of-conduct", description: "Community standards" },
     ],
   },
   {

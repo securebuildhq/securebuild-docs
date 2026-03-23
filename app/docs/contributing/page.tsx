@@ -27,25 +27,28 @@ export default function ContributingPage() {
         </DocsLI>
         <DocsLI>
           <strong>Code and documentation</strong> — Open a pull request. See{" "}
-          <Link href="/docs/development" className="text-primary hover:underline">Development Setup</Link> for
-          getting the repo running locally, then submit your PR; CI runs tests on pull requests.
+          <Link href="/docs/development" className="text-primary hover:underline">Development environment</Link> and{" "}
+          <Link href="/docs/self-hosted" className="text-primary hover:underline">Self-hosted</Link> docs (see{" "}
+          <Link href="/docs/self-hosted/config-reference" className="text-primary hover:underline">configuration reference</Link>
+          ) for
+          running the stack and configuring services, then submit your PR; CI runs tests on pull requests.
         </DocsLI>
       </DocsUL>
 
       {/* Navigation */}
       <div className="mt-16 pt-8 border-t flex justify-between">
         <Link
-          href="/docs/attestations"
+          href="/docs/building/images"
           className="group flex items-center gap-2 text-sm font-medium hover:text-primary transition-colors"
         >
           <ArrowLeft className="h-4 w-4 group-hover:-translate-x-1 transition-transform" />
-          Attestations
+          Images
         </Link>
         <Link
           href="/docs/development"
           className="group flex items-center gap-2 text-sm font-medium hover:text-primary transition-colors"
         >
-          Development Setup
+          Development environment
           <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
         </Link>
       </div>

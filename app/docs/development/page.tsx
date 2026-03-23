@@ -2,120 +2,221 @@ import Link from "next/link"
 import { ArrowLeft, ArrowRight } from "lucide-react"
 import { DocsH1, DocsH2, DocsH3, DocsP, DocsUL, DocsLI } from "@/components/docs/typography"
 
+function CommandBlock({ children }: { children: string }) {
+  return (
+    <pre className="not-prose bg-muted rounded-lg p-4 overflow-x-auto my-4 text-sm font-mono leading-relaxed">
+      <code>{children}</code>
+    </pre>
+  )
+}
+
+function HelpBlock({ children }: { children: string }) {
+  return (
+    <pre className="not-prose bg-muted rounded-lg p-4 overflow-x-auto my-4 text-xs sm:text-sm font-mono leading-relaxed whitespace-pre">
+      {children}
+    </pre>
+  )
+}
+
 export default function DevelopmentPage() {
   return (
     <article className="max-w-3xl">
-      {/* Breadcrumb */}
       <div className="flex items-center gap-2 text-sm text-muted-foreground mb-8">
-        <Link href="/docs" className="hover:text-foreground">Docs</Link>
+        <Link href="/docs" className="hover:text-foreground">
+          Docs
+        </Link>
         <span>/</span>
-        <span className="text-foreground">Development</span>
+        <span className="text-foreground">Development environment</span>
       </div>
 
-      <DocsH1>Development</DocsH1>
+      <DocsH1>Development environment</DocsH1>
 
-      <p className="text-lg text-muted-foreground mb-12 leading-relaxed max-w-2xl">
-        This page lists what you need to run and develop SecureBuild locally. The project
-        provides a Nix flake (<code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">flake.nix</code>) that pins
-        versions; the requirements below are consistent with that setup.
+      <p className="text-lg text-muted-foreground mb-10 leading-relaxed max-w-2xl">
+        Work from the{" "}
+        <Link
+          href="https://github.com/securebuildhq/securebuild"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-primary hover:underline"
+        >
+          SecureBuild repository
+        </Link>{" "}
+        root. For service configuration (YAML, registry, storage), see the{" "}
+        <Link href="/docs/self-hosted" className="text-primary hover:underline">
+          Self-hosted
+        </Link>{" "}
+        docs and the{" "}
+        <Link href="/docs/self-hosted/config-reference" className="text-primary hover:underline">
+          configuration reference
+        </Link>
+        .
       </p>
 
-      <DocsH2 id="container-runtime">Container runtime</DocsH2>
-      <DocsP>
-        You need a container runtime for building and running images. Use either:
-      </DocsP>
-      <DocsUL>
-        <DocsLI><strong>Docker</strong> — or a Docker-compatible daemon (e.g. Docker Desktop, or Colima/Lima on macOS as used in the Nix shell).</DocsLI>
-        <DocsLI><strong>OrbStack</strong> — a lightweight Docker-compatible runtime, especially common on macOS.</DocsLI>
-      </DocsUL>
-      <DocsP>
-        The Nix dev shell checks that <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">docker</code> is available; with OrbStack or another
-        Docker-compatible CLI, the same commands apply.
-      </DocsP>
-
-      <DocsH2 id="requirements">Requirements</DocsH2>
-      <DocsP>
-        The following are required for a full development environment, matching the
-        SecureBuild <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">flake.nix</code>:
-      </DocsP>
-      <DocsUL>
-        <DocsLI><strong>Go</strong> — used to build the worker, builder, and other Go components.</DocsLI>
-        <DocsLI><strong>Node.js</strong> — for the SecureBuild app (Next.js).</DocsLI>
-        <DocsLI><strong>Docker or OrbStack</strong> — container runtime (see above).</DocsLI>
-        <DocsLI><strong>Git</strong> — for version control and repo operations.</DocsLI>
-        <DocsLI><strong>PostgreSQL</strong> — local DB for development (the flake provides <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">pg_isready</code>).</DocsLI>
-        <DocsLI><strong>pipx</strong> — for installing Python CLI tools (e.g. vunnel).</DocsLI>
-        <DocsLI><strong>Grype</strong> — vulnerability scanning (used in pipelines and scan jobs).</DocsLI>
-        <DocsLI><strong>Apko</strong> — Chainguard apko for building APK-based images.</DocsLI>
-        <DocsLI><strong>Melange</strong> — Chainguard melange for building packages.</DocsLI>
-        <DocsLI><strong>Syft</strong> — SBOM generation.</DocsLI>
-        <DocsLI><strong>Dagger</strong> — for CI/pipeline automation.</DocsLI>
-        <DocsLI><strong>SchemaHero</strong> — DB schema management.</DocsLI>
-        <DocsLI><strong>vunnel</strong> — installed via pipx (vulnerability data pipeline).</DocsLI>
-        <DocsLI><strong>grype-db</strong> — installed via <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">go install</code> (Grype database tooling).</DocsLI>
-      </DocsUL>
-      <DocsP>
-        On macOS, the Nix shell also includes <strong>Colima</strong>, <strong>Lima</strong>, and <strong>QEMU</strong> for
-        running a local container runtime when not using Docker Desktop or OrbStack.
-      </DocsP>
-
-      <DocsH2 id="nix">Using the Nix flake</DocsH2>
-      <DocsP>
-        The project uses a Nix flake for the development environment. From the SecureBuild
-        repo root:
-      </DocsP>
+      <DocsH2 id="before-you-start">Before you start</DocsH2>
       <DocsUL>
         <DocsLI>
-          Run <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">nix develop</code> to enter a shell with the
-          above tools, or use <Link href="https://direnv.net/" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">direnv</Link> with{" "}
-          <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">use flake</code> in <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">.envrc</code> so the
-          environment loads automatically.
+          <strong>Docker Swarm</strong> — enabled once per machine (
+          <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">docker swarm init</code>
+          ) if your setup does not already use Swarm.
         </DocsLI>
         <DocsLI>
-          The shell hook will install vunnel and grype-db if missing and print the status of
-          each tool. For pinned versions and details, see{" "}
-          <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">flake.nix</code> in the{" "}
-          <Link href="https://github.com/securebuildhq/securebuild" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">SecureBuild repository</Link>.
+          <strong>Tooling</strong> — the repo ships a Nix flake; run{" "}
+          <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">nix develop</code> (or direnv) so{" "}
+          <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">make</code>, Go, Node, and related CLIs match
+          CI.
         </DocsLI>
       </DocsUL>
 
-      <DocsH2 id="make-targets">Make targets</DocsH2>
       <DocsP>
-        Run <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">make help</code> to see available targets.
+        Create <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">securebuild-config.yaml</code> at the
+        repo root for the Go services (worker, apk-proxy, oci-proxy) and{" "}
+        <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">securebuild-app/.env.local</code> for the Next.js
+        app before <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">make dev-stack-up</code>. The stack
+        also mounts these paths; <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">make build-dev-images</code>{" "}
+        reads <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">.env.local</code> for{" "}
+        <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">NEXT_PUBLIC_*</code> build arguments.
+      </DocsP>
+      <DocsP>
+        The examples below are for <strong>local development</strong> and are intended to work out of the box. They are
+        not a secure production configuration: simple passwords and placeholder secrets are acceptable here. The only
+        values that may require real credentials are <strong>container registry</strong> login details and{" "}
+        <strong>S3-compatible storage</strong> (R2) keys—when those point at real services you care about.
       </DocsP>
 
-      <DocsH3>Go (worker, builder, proxies)</DocsH3>
-      <DocsUL>
-        <DocsLI><strong>Build worker:</strong> <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">make build-worker</code> — builds the worker with embedded builder binaries.</DocsLI>
-        <DocsLI><strong>Run services:</strong> <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">make run-worker</code>, <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">make run-oci-proxy</code>, <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">make run-apk-proxy</code> — each builds first if needed.</DocsLI>
-      </DocsUL>
+      <DocsH3 id="example-securebuild-config">Example: securebuild-config.yaml</DocsH3>
+      <HelpBlock>{`# Repo root: securebuild-config.yaml (Go services — dev defaults; see note above)
+# Full template: securebuild-config.example.yaml in the SecureBuild repository.
+# DB_URI is set in docker-compose.yml for the Swarm stack (omit here unless you need an override).
 
-      <DocsH3>TypeScript (app)</DocsH3>
-      <DocsUL>
-        <DocsLI><strong>Install:</strong> <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">cd securebuild-app &amp;&amp; npm install</code> (and similarly for other app directories in the repo).</DocsLI>
-        <DocsLI><strong>Dev server:</strong> <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">npm run dev</code> (app runs on port 3000).</DocsLI>
-      </DocsUL>
+registry_image_prefix: ghcr.io/your-org/securebuild
+registry_username: your-registry-user
+registry_password: your-registry-token-or-password
 
-      <DocsH3>Database</DocsH3>
+apk_repository: http://localhost:8080  # apk-proxy (published on 8080 in docker-compose)
+
+apk_public_key_name: cve0-signing.rsa.pub
+apk_public_key_data: "<base64 data>"  # replace: base64-encoded public key PEM
+apk_signing_key_data: "<base64 data>"  # replace: base64-encoded private key PEM
+apk_signing_key_name: cve0-signing.rsa.key
+
+r2_endpoint: https://s3.example.com
+r2_access_key: replace-me  # replace with your R2 or S3 access key
+r2_secret_key: replace-me  # replace with your R2 or S3 secret key
+r2_bucket_name: securebuild
+r2_feed_bucket_name: securebuild-feeds
+r2_use_path_style: false
+
+build_backend: local
+
+auth_method: password
+admin_user_email: admin@example.com      # only if SMTP is not configured in the app
+admin_user_password: clear-text-password  # only if SMTP is not configured in the app
+
+log_level: info`}</HelpBlock>
       <DocsP>
-        <strong>Migrations:</strong> <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">make migrate</code> — runs SchemaHero-based migrations.
+        Add optional <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">static_vms</code> and other fields
+        from the example file as needed. Field meanings:{" "}
+        <Link href="/docs/self-hosted/config-reference" className="text-primary hover:underline">
+          Configuration reference
+        </Link>
+        .
       </DocsP>
 
-      <DocsH2 id="testing">Testing</DocsH2>
-      <DocsUL>
-        <DocsLI><strong>Unit tests (all):</strong> <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">make test-unit</code> — runs Go unit tests plus app tests.</DocsLI>
-        <DocsLI><strong>Go unit tests only:</strong> <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">make test-unit-go</code>.</DocsLI>
-        <DocsLI>
-          <strong>Integration tests:</strong> <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">make test-integration-oci-proxy</code>,{" "}
-          <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">make test-integration-apk-proxy</code>,{" "}
-          <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">make test-integration-worker</code>.
-        </DocsLI>
-      </DocsUL>
+      <DocsH3 id="example-env-local">Example: securebuild-app/.env.local</DocsH3>
+      <HelpBlock>{`# securebuild-app/.env.local (web app — password auth; dev defaults)
+# DB_URI is set in docker-compose.yml for the app container.
+
+HMAC_SECRET=dev-only-secret
+
+REGISTRY_IMAGE_PREFIX=ghcr.io/your-org/securebuild
+
+AUTH_METHOD=password
+
+NEXT_PUBLIC_APK_REPOSITORY=http://localhost:8080  # apk-proxy on host
+`}</HelpBlock>
       <DocsP>
-        CI runs tests on pull requests; run the relevant targets locally before submitting.
+        <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">docker-compose.yml</code> sets{" "}
+        <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">DB_URI</code> for worker and app in the Swarm
+        stack, so you do not need it in these files for <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">make dev-stack-up</code>. Use{" "}
+        <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">admin_user_email</code> and{" "}
+        <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">admin_user_password</code> in the YAML only when
+        the app does not have SMTP configured—otherwise omit them and use email-based setup flows.
       </DocsP>
 
-      {/* Navigation */}
+      <DocsH3>Start dev environment</DocsH3>
+      <CommandBlock>{`make dev-stack-up`}</CommandBlock>
+      <DocsP>
+        Open <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">localhost:3000</code> in your browser to
+        view the site.
+      </DocsP>
+
+      <DocsH3>Enter dev shell for a service</DocsH3>
+      <DocsP>
+        Pick the component you want to run from source. Exiting the shell restores the stack.
+      </DocsP>
+      <CommandBlock>{`make dev-worker`}</CommandBlock>
+      <CommandBlock>{`make dev-app`}</CommandBlock>
+      <CommandBlock>{`make dev-apk-proxy`}</CommandBlock>
+      <CommandBlock>{`make dev-oci-proxy`}</CommandBlock>
+      <DocsP>
+        In that shell, run the service. For example,{" "}
+        <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">make run-worker</code> for the worker, or{" "}
+        <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">npm run dev</code> from{" "}
+        <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">securebuild-app/</code> for the app.
+      </DocsP>
+
+      <DocsH3>Open a shell for database migrations</DocsH3>
+      <CommandBlock>{`make dev-migrate`}</CommandBlock>
+      <DocsP>
+        Then run <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">make migrate</code> in the same
+        shell.
+      </DocsP>
+
+      <DocsH3>Stop the dev environment</DocsH3>
+      <CommandBlock>{`make dev-stack-down`}</CommandBlock>
+
+      <DocsH2 id="make-help">What each target does</DocsH2>
+      <DocsP>
+        The canonical list of targets and descriptions is printed by:
+      </DocsP>
+      <CommandBlock>{`make help`}</CommandBlock>
+      <DocsP>Relevant sections for day-to-day development:</DocsP>
+
+      <DocsH3 id="help-development">Development</DocsH3>
+      <HelpBlock>{`Development:
+  build-worker        - Build worker with embedded builder binaries
+  build-worker-release - Build worker for linux/amd64 and linux/arm64 (release)
+  build-builder  - Build builder binaries for Linux x86_64 and aarch64
+  run-worker     - Run the worker service
+  run-oci-proxy  - Run the OCI proxy service
+  run-apk-proxy  - Run the APK proxy service`}</HelpBlock>
+
+      <DocsH3 id="help-dev-stack">Local Dev Stack (Docker Swarm)</DocsH3>
+      <HelpBlock>{`Local Dev Stack (Docker Swarm):
+  dev-stack-up   - Build images and start the full dev stack in Docker Swarm
+  dev-stack-down - Stop and remove the dev stack
+  dev-worker     - Scale down worker, open shell with DB_URI set; restores on exit
+  dev-app        - Scale down app, open shell in securebuild-app/ with DB_URI set; restores on exit
+  dev-apk-proxy  - Scale down apk-proxy, open shell with DB_URI set; restores on exit
+  dev-oci-proxy  - Scale down oci-proxy, open shell with DB_URI set; restores on exit
+  dev-migrate    - Open shell with DB_URI set; run 'make migrate' inside`}</HelpBlock>
+
+      <DocsH3 id="help-database">Database</DocsH3>
+      <HelpBlock>{`Database:
+  migrate        - Run database migrations using schemahero`}</HelpBlock>
+
+      <DocsH3 id="help-testing">Testing</DocsH3>
+      <HelpBlock>{`Testing:
+  test-unit                   - Run all unit tests (Go + securebuild-app)
+  test-unit-go                - Run Go unit tests only
+  test-integration-oci-proxy  - Run OCI proxy integration tests
+  test-integration-apk-proxy       - Run APK proxy integration tests
+  test-integration-worker          - Run worker integration tests`}</HelpBlock>
+      <DocsP>
+        Example: <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">make test-unit</code>. CI runs these on
+        pull requests—use the integration target that matches your change when needed.
+      </DocsP>
+
       <div className="mt-16 pt-8 border-t flex justify-between">
         <Link
           href="/docs"

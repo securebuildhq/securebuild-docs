@@ -19,9 +19,9 @@ export function DocsH2({ id, children }: { id?: string; children: React.ReactNod
   )
 }
 
-export function DocsH3({ children }: { children: React.ReactNode }) {
+export function DocsH3({ id, children }: { id?: string; children: React.ReactNode }) {
   return (
-    <h3 className="text-xl font-semibold tracking-tight mb-3 mt-6">
+    <h3 id={id} className="text-xl font-semibold tracking-tight mb-3 mt-6">
       {children}
     </h3>
   )
