@@ -215,7 +215,11 @@ export default function SelfHostedConfigReferencePage() {
           { yaml: "specsync_enabled", env: "SPECSYNC_ENABLED", desc: "Enable spec sync." },
           { yaml: "specsync_github_token", env: "SPECSYNC_GITHUB_TOKEN", desc: "GitHub token for spec sync." },
           { yaml: "specsync_github_branch", env: "SPECSYNC_GITHUB_BRANCH", desc: "Branch for spec sync." },
-          { yaml: "pipeline_dir", env: "PIPELINE_DIR", desc: "Pipeline workspace directory on the worker host." },
+          {
+            yaml: "pipeline_dir",
+            env: "PIPELINE_DIR",
+            desc: "Pipeline workspace root on the worker. Docker Swarm dev stack: use /var/run/securebuild/pipelines (bind-mounted from dev-pipelines/ at repo root). Worker running on the host: use an absolute host path to the same directory.",
+          },
         ]}
       />
 
@@ -265,6 +269,12 @@ export default function SelfHostedConfigReferencePage() {
       </DocsP>
 
       <DocsH3 id="next-param-ts">Values used via getParam (lib/data/param.ts)</DocsH3>
+      <DocsP>
+        Set <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">PIPELINE_DIR</code> on the app to the same
+        filesystem path the worker uses (for example Doppler or your orchestrator env), and use a shared volume or mount so
+        both processes see the same pipeline files—omitting it on the app produces a runtime error when server code reads
+        pipelines.
+      </DocsP>
       <EnvTable
         rows={[
           { name: "DB_URI or SECUREBUILD_PG_URI", desc: "PostgreSQL URI for server-side data access." },
@@ -272,7 +282,10 @@ export default function SelfHostedConfigReferencePage() {
           { name: "REPLICATED_API_TOKEN", desc: "Same as Go Param." },
           { name: "REGISTRY_IMAGE_PREFIX", desc: "Registry prefix for server-side image URLs." },
           { name: "OCI_IMAGE_PREFIX", desc: "Optional alternate prefix (default empty)." },
-          { name: "PIPELINE_DIR", desc: "Filesystem root for pipeline/package files." },
+          {
+            name: "PIPELINE_DIR",
+            desc: "Required on the app and worker. Same path and shared storage on both (Swarm dev: /var/run/securebuild/pipelines; host: absolute repo dev-pipelines/).",
+          },
           { name: "AUTH_METHOD", desc: "password | github." },
           { name: "ADMIN_GITHUB_ORG", desc: "GitHub org for membership checks when using GitHub auth." },
           { name: "APP_ORIGIN or NEXT_PUBLIC_APP_ORIGIN", desc: "Public origin URL for links and callbacks." },

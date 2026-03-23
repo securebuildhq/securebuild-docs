@@ -72,8 +72,13 @@ export default function DevelopmentPage() {
         repo root for the Go services (worker, apk-proxy, oci-proxy) and{" "}
         <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">securebuild-app/.env.local</code> for the Next.js
         app before <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">make dev-stack-up</code>. The stack
-        also mounts these paths; <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">make build-dev-images</code>{" "}
-        reads <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">.env.local</code> for{" "}
+        also mounts these paths;         the worker and app mount{" "}
+        <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">dev-pipelines/</code> at{" "}
+        <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">/var/run/securebuild/pipelines</code> (the
+        directory is gitignored; <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">make dev-stack-up</code>{" "}
+        creates it before <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">docker stack deploy</code>).{" "}
+        <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">make build-dev-images</code> reads{" "}
+        <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">.env.local</code> for{" "}
         <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">NEXT_PUBLIC_*</code> build arguments.
       </DocsP>
       <DocsP>
@@ -107,6 +112,9 @@ r2_use_path_style: false
 
 build_backend: local
 
+# Pipeline files: in Swarm, compose mounts repo dev-pipelines/ here — keep this path.
+pipeline_dir: /var/run/securebuild/pipelines
+
 auth_method: password
 admin_user_email: admin@example.com      # only if SMTP is not configured in the app
 admin_user_password: clear-text-password  # only if SMTP is not configured in the app
@@ -123,7 +131,8 @@ log_level: info`}</HelpBlock>
 
       <DocsH3 id="example-env-local">Example: securebuild-app/.env.local</DocsH3>
       <HelpBlock>{`# securebuild-app/.env.local (web app — password auth; dev defaults)
-# DB_URI is set in docker-compose.yml for the app container.
+# DB_URI and PIPELINE_DIR are set in docker-compose.yml for the Swarm app container.
+# For npm run dev on the host, set PIPELINE_DIR to an absolute path to repo dev-pipelines/.
 
 HMAC_SECRET=dev-only-secret
 
@@ -131,15 +140,19 @@ REGISTRY_IMAGE_PREFIX=ghcr.io/your-org/securebuild
 
 AUTH_METHOD=password
 
+PIPELINE_DIR=/absolute/path/to/securebuild/dev-pipelines
+
 NEXT_PUBLIC_APK_REPOSITORY=http://localhost:8080  # apk-proxy on host
 `}</HelpBlock>
       <DocsP>
         <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">docker-compose.yml</code> sets{" "}
-        <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">DB_URI</code> for worker and app in the Swarm
-        stack, so you do not need it in these files for <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">make dev-stack-up</code>. Use{" "}
+        <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">DB_URI</code> and{" "}
+        <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">PIPELINE_DIR</code> for the app, and{" "}
+        <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">DB_URI</code> for the worker, in the Swarm stack;
+        you do not need those in these files for <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">make dev-stack-up</code>. Use{" "}
         <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">admin_user_email</code> and{" "}
-        <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">admin_user_password</code> in the YAML only when
-        the app does not have SMTP configured—otherwise omit them and use email-based setup flows.
+        <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">admin_user_password</code> in the YAML when
+        the app does not have SMTP configured or if you just want to use a single pre-defined user—otherwise omit them and use email-based setup flows.
       </DocsP>
 
       <DocsH3>Start dev environment</DocsH3>
