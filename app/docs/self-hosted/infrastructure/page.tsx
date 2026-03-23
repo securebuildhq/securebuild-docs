@@ -178,10 +178,11 @@ schemahero apply \\
       <Pre>{`openssl pkey -in apk-signing.pem -pubout -out apk-signing.pub.pem`}</Pre>
 
       <DocsP>
-        <strong>3.</strong> Base64-encode each PEM file and place in config:
+        <strong>3.</strong> Base64-encode each PEM file on a <strong>single line</strong> (no wrapped lines inside the
+        string you paste into config) and place in config:
       </DocsP>
-      <Pre>{`base64 < apk-signing.pub.pem > apk-signing.pub.pem.b64
-base64 < apk-signing.pem > apk-signing.pem.b64`}</Pre>
+      <Pre>{`openssl enc -base64 -A -in apk-signing.pub.pem -out apk-signing.pub.pem.b64
+openssl enc -base64 -A -in apk-signing.pem -out apk-signing.pem.b64`}</Pre>
       <DocsP>
         Copy the contents of <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">apk-signing.pub.pem.b64</code> to <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">apk_public_key_data</code> and <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">apk-signing.pem.b64</code> to <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">apk_signing_key_data</code>. After decoding <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">apk_public_key_data</code>, the bytes served at{" "}
         <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">/key/&lt;apk_public_key_name&gt;</code> must match the public PEM file exactly.

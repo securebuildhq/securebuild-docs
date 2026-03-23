@@ -157,7 +157,6 @@ export default function SelfHostedConfigReferencePage() {
       <ParamTable
         rows={[
           { yaml: "r2_bucket_name", env: "R2_BUCKET_NAME", desc: "Primary bucket." },
-          { yaml: "r2_feed_bucket_name", env: "R2_FEED_BUCKET_NAME", desc: "Feed bucket." },
           { yaml: "r2_access_key", env: "R2_ACCESS_KEY", desc: "Access key ID." },
           { yaml: "r2_secret_key", env: "R2_SECRET_KEY", desc: "Secret access key." },
           { yaml: "r2_endpoint", env: "R2_ENDPOINT", desc: "S3 API endpoint URL." },
@@ -177,10 +176,9 @@ export default function SelfHostedConfigReferencePage() {
         ]}
       />
 
-      <DocsH3 id="go-misc">Email, integrations, secrets</DocsH3>
+      <DocsH3 id="go-misc">Integrations and secrets</DocsH3>
       <ParamTable
         rows={[
-          { yaml: "postmark_server_token", env: "POSTMARK_SERVER_TOKEN", desc: "Postmark API token." },
           { yaml: "updater_github_api_token", env: "UPDATER_GITHUB_API_TOKEN", desc: "GitHub token for updater." },
           { yaml: "release_monitor_api_token", env: "RELEASE_MONITOR_API_TOKEN", desc: "Release Monitor API token." },
           {

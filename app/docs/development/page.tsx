@@ -103,7 +103,6 @@ r2_endpoint: https://s3.example.com
 r2_access_key: replace-me  # replace with your R2 or S3 access key
 r2_secret_key: replace-me  # replace with your R2 or S3 secret key
 r2_bucket_name: securebuild
-r2_feed_bucket_name: securebuild-feeds
 r2_use_path_style: false
 
 build_backend: local
