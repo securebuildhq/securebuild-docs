@@ -99,10 +99,10 @@ registry_password: your-registry-token-or-password
 
 apk_repository: http://apk-proxy:8880  # apk-proxy (available on 8880 in docker-compose)
 
-apk_public_key_name: cve0-signing.rsa.pub
+apk_public_key_name: dev-signing.rsa.pub
 apk_public_key_data: "<base64 data>"  # replace: base64-encoded public key PEM
 apk_signing_key_data: "<base64 data>"  # replace: base64-encoded private key PEM
-apk_signing_key_name: cve0-signing.rsa.key
+apk_signing_key_name: dev-signing.rsa.key
 
 r2_endpoint: https://s3.example.com
 r2_access_key: replace-me  # replace with your R2 or S3 access key

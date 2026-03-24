@@ -77,7 +77,7 @@ export default function BuildingImagesPage() {
   keyring:
     - https://apk.cve0.io/key/cve0-signing.rsa.pub
   packages:
-    - go~1.25.7
+    - go~1.25.8
     - build-base
     - make
     - pkgconf
@@ -86,13 +86,39 @@ export default function BuildingImagesPage() {
     - curl
     - ca-certificates-bundle
     - securebuild-baselayout
-    - busybox`}</Pre>
+    - busybox
+
+environment:
+  PATH: /go/bin:/usr/local/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+  GOLANG_VERSION: "1.25.8"
+  GOTOOLCHAIN: local
+  GOPATH: /go
+
+paths:
+  - path: /go
+    type: directory
+    permissions: 0o1777
+  - path: /go/src
+    type: directory
+    permissions: 0o1777
+  - path: /go/bin
+    type: directory
+    permissions: 0o1777
+  - path: /usr/local/go
+    type: symlink
+    source: /usr/lib/go
+    permissions: 0o755
+
+cmd: /bin/bash
+
+work-dir: /go
+`}</Pre>
       <DocsP>
-        The <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">go~1.25.7</code> line pins the{" "}
+        The <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">go~1.25.8</code> line pins the{" "}
         <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">go</code> APK to a specific version published in
         the repository (the <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">~</code> constraint matches
         that package version in the index). That keeps the image on a known toolchain for reproducible builds, which also
-        lets you tag the image with something like <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">1.25.7</code> so
+        lets you tag the image with something like <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">1.25.8</code> so
         the OCI tag matches the Go version and consumers get a fixed, known toolchain.
       </DocsP>
 

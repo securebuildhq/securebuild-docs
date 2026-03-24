@@ -99,6 +99,9 @@ environment:
       - ca-certificates-bundle
       - go
       - git
+  environment:
+    GOPROXY: 'https://proxy.golang.org,direct'
+    GOSUMDB: 'sum.golang.org'
 
 pipeline:
   - uses: git-checkout
