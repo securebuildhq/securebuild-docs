@@ -97,7 +97,7 @@ registry_image_prefix: ghcr.io/your-org/securebuild
 registry_username: your-registry-user
 registry_password: your-registry-token-or-password
 
-apk_repository: http://localhost:8080  # apk-proxy (published on 8080 in docker-compose)
+apk_repository: http://apk-proxy:8880  # apk-proxy (available on 8880 in docker-compose)
 
 apk_public_key_name: cve0-signing.rsa.pub
 apk_public_key_data: "<base64 data>"  # replace: base64-encoded public key PEM
@@ -143,7 +143,7 @@ AUTH_METHOD=password
 
 PIPELINE_DIR=/absolute/path/to/securebuild/dev-pipelines
 
-NEXT_PUBLIC_APK_REPOSITORY=http://localhost:8080  # apk-proxy on host
+NEXT_PUBLIC_APK_REPOSITORY=http://apk-proxy:8880  # apk-proxy on host
 `}</HelpBlock>
       <DocsP>
         <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">docker-compose.yml</code> sets{" "}
