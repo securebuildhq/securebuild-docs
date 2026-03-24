@@ -65,6 +65,16 @@ export default function DevelopmentPage() {
           <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">make</code>, Go, Node, and related CLIs match
           CI.
         </DocsLI>
+        <DocsLI>
+          <strong>Linux — Bubblewrap</strong> — when you run the worker on the host (e.g. after{" "}
+          <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">make dev-worker</code>
+          ) with <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">build_backend: local</code>, melange
+          needs the <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">bwrap</code> binary on{" "}
+          <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">PATH</code>. Install the OS package: Debian/Ubuntu{" "}
+          <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">sudo apt-get install bubblewrap</code>, Fedora{" "}
+          <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">dnf install bubblewrap</code>, Arch{" "}
+          <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">pacman -S bubblewrap</code>.
+        </DocsLI>
       </DocsUL>
 
       <DocsP>
