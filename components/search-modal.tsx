@@ -77,7 +77,7 @@ const searchResults = [
       {
         title: "Development environment",
         href: "/docs/development",
-        description: "Nix flake, Docker Swarm dev stack, make targets",
+        description: "Nix flake, Docker Compose dev stack, make targets",
       },
       { title: "Code of Conduct", href: "/docs/code-of-conduct", description: "Community standards" },
     ],

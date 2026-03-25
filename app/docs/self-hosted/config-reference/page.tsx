@@ -223,7 +223,7 @@ export default function SelfHostedConfigReferencePage() {
           {
             yaml: "pipeline_dir",
             env: "PIPELINE_DIR",
-            desc: "Pipeline workspace root on the worker. Docker Swarm dev stack: use /var/run/securebuild/pipelines (bind-mounted from dev-pipelines/ at repo root). Worker running on the host: use an absolute host path to the same directory.",
+            desc: "Pipeline workspace root on the worker. Docker Compose dev stack: use /var/run/securebuild/pipelines (bind-mounted from dev-pipelines/ at repo root). Worker running on the host: use an absolute host path to the same directory.",
           },
         ]}
       />
@@ -289,7 +289,7 @@ export default function SelfHostedConfigReferencePage() {
           { name: "OCI_IMAGE_PREFIX", desc: "Optional alternate prefix (default empty)." },
           {
             name: "PIPELINE_DIR",
-            desc: "Required on the app and worker. Same path and shared storage on both (Swarm dev: /var/run/securebuild/pipelines; host: absolute repo dev-pipelines/).",
+            desc: "Required on the app and worker. Same path and shared storage on both (Compose dev: /var/run/securebuild/pipelines; host: absolute repo dev-pipelines/).",
           },
           { name: "AUTH_METHOD", desc: "password | github." },
           { name: "ADMIN_GITHUB_ORG", desc: "GitHub org for membership checks when using GitHub auth." },
