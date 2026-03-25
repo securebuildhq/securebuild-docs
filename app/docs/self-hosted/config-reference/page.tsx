@@ -157,10 +157,14 @@ export default function SelfHostedConfigReferencePage() {
       <ParamTable
         rows={[
           { yaml: "r2_bucket_name", env: "R2_BUCKET_NAME", desc: "Primary bucket." },
-          { yaml: "r2_feed_bucket_name", env: "R2_FEED_BUCKET_NAME", desc: "Feed bucket." },
           { yaml: "r2_access_key", env: "R2_ACCESS_KEY", desc: "Access key ID." },
           { yaml: "r2_secret_key", env: "R2_SECRET_KEY", desc: "Secret access key." },
           { yaml: "r2_endpoint", env: "R2_ENDPOINT", desc: "S3 API endpoint URL." },
+          {
+            yaml: "r2_region",
+            env: "R2_REGION",
+            desc: "SigV4 signing region. Set to your AWS bucket region (e.g. us-east-1) when using Amazon S3. Omit for Cloudflare R2 (defaults to auto).",
+          },
           { yaml: "r2_use_dynamic_folder", env: "R2_USE_DYNAMIC_FOLDER", desc: "Dynamic folder layout flag." },
           { yaml: "r2_use_path_style", env: "R2_USE_PATH_STYLE", desc: "Use path-style addressing (e.g. MinIO)." },
         ]}
@@ -177,10 +181,9 @@ export default function SelfHostedConfigReferencePage() {
         ]}
       />
 
-      <DocsH3 id="go-misc">Email, integrations, secrets</DocsH3>
+      <DocsH3 id="go-misc">Integrations and secrets</DocsH3>
       <ParamTable
         rows={[
-          { yaml: "postmark_server_token", env: "POSTMARK_SERVER_TOKEN", desc: "Postmark API token." },
           { yaml: "updater_github_api_token", env: "UPDATER_GITHUB_API_TOKEN", desc: "GitHub token for updater." },
           { yaml: "release_monitor_api_token", env: "RELEASE_MONITOR_API_TOKEN", desc: "Release Monitor API token." },
           {
@@ -217,7 +220,11 @@ export default function SelfHostedConfigReferencePage() {
           { yaml: "specsync_enabled", env: "SPECSYNC_ENABLED", desc: "Enable spec sync." },
           { yaml: "specsync_github_token", env: "SPECSYNC_GITHUB_TOKEN", desc: "GitHub token for spec sync." },
           { yaml: "specsync_github_branch", env: "SPECSYNC_GITHUB_BRANCH", desc: "Branch for spec sync." },
-          { yaml: "pipeline_dir", env: "PIPELINE_DIR", desc: "Pipeline workspace directory on the worker host." },
+          {
+            yaml: "pipeline_dir",
+            env: "PIPELINE_DIR",
+            desc: "Pipeline workspace root on the worker. Docker Compose dev stack: use /var/run/securebuild/pipelines (bind-mounted from dev-pipelines/ at repo root). Worker running on the host: use an absolute host path to the same directory.",
+          },
         ]}
       />
 
@@ -267,6 +274,12 @@ export default function SelfHostedConfigReferencePage() {
       </DocsP>
 
       <DocsH3 id="next-param-ts">Values used via getParam (lib/data/param.ts)</DocsH3>
+      <DocsP>
+        Set <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">PIPELINE_DIR</code> on the app to the same
+        filesystem path the worker uses (for example Doppler or your orchestrator env), and use a shared volume or mount so
+        both processes see the same pipeline files—omitting it on the app produces a runtime error when server code reads
+        pipelines.
+      </DocsP>
       <EnvTable
         rows={[
           { name: "DB_URI or SECUREBUILD_PG_URI", desc: "PostgreSQL URI for server-side data access." },
@@ -274,7 +287,10 @@ export default function SelfHostedConfigReferencePage() {
           { name: "REPLICATED_API_TOKEN", desc: "Same as Go Param." },
           { name: "REGISTRY_IMAGE_PREFIX", desc: "Registry prefix for server-side image URLs." },
           { name: "OCI_IMAGE_PREFIX", desc: "Optional alternate prefix (default empty)." },
-          { name: "PIPELINE_DIR", desc: "Filesystem root for pipeline/package files." },
+          {
+            name: "PIPELINE_DIR",
+            desc: "Required on the app and worker. Same path and shared storage on both (Compose dev: /var/run/securebuild/pipelines; host: absolute repo dev-pipelines/).",
+          },
           { name: "AUTH_METHOD", desc: "password | github." },
           { name: "ADMIN_GITHUB_ORG", desc: "GitHub org for membership checks when using GitHub auth." },
           { name: "APP_ORIGIN or NEXT_PUBLIC_APP_ORIGIN", desc: "Public origin URL for links and callbacks." },

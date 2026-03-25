@@ -55,15 +55,26 @@ export default function DevelopmentPage() {
       <DocsH2 id="before-you-start">Before you start</DocsH2>
       <DocsUL>
         <DocsLI>
-          <strong>Docker Swarm</strong> — enabled once per machine (
-          <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">docker swarm init</code>
-          ) if your setup does not already use Swarm.
+          <strong>Docker</strong> — a recent Docker Engine with the{" "}
+          <strong>Compose plugin</strong> (
+          <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">docker compose</code>
+          ). Docker Desktop, OrbStack, and typical Linux packages provide this.
         </DocsLI>
         <DocsLI>
           <strong>Tooling</strong> — the repo ships a Nix flake; run{" "}
           <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">nix develop</code> (or direnv) so{" "}
           <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">make</code>, Go, Node, and related CLIs match
           CI.
+        </DocsLI>
+        <DocsLI>
+          <strong>Linux — Bubblewrap</strong> — when you run the worker on the host (e.g. after{" "}
+          <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">make dev-worker</code>
+          ) with <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">build_backend: local</code>, melange
+          needs the <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">bwrap</code> binary on{" "}
+          <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">PATH</code>. Install the OS package: Debian/Ubuntu{" "}
+          <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">sudo apt-get install bubblewrap</code>, Fedora{" "}
+          <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">dnf install bubblewrap</code>, Arch{" "}
+          <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">pacman -S bubblewrap</code>.
         </DocsLI>
       </DocsUL>
 
@@ -72,8 +83,13 @@ export default function DevelopmentPage() {
         repo root for the Go services (worker, apk-proxy, oci-proxy) and{" "}
         <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">securebuild-app/.env.local</code> for the Next.js
         app before <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">make dev-stack-up</code>. The stack
-        also mounts these paths; <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">make build-dev-images</code>{" "}
-        reads <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">.env.local</code> for{" "}
+        also mounts these paths;         the worker and app mount{" "}
+        <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">dev-pipelines/</code> at{" "}
+        <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">/var/run/securebuild/pipelines</code> (the
+        directory is gitignored; <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">make dev-stack-up</code>{" "}
+        creates it before <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">docker compose up</code>).{" "}
+        <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">make build-dev-images</code> reads{" "}
+        <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">.env.local</code> for{" "}
         <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">NEXT_PUBLIC_*</code> build arguments.
       </DocsP>
       <DocsP>
@@ -86,27 +102,30 @@ export default function DevelopmentPage() {
       <DocsH3 id="example-securebuild-config">Example: securebuild-config.yaml</DocsH3>
       <HelpBlock>{`# Repo root: securebuild-config.yaml (Go services — dev defaults; see note above)
 # Full template: securebuild-config.example.yaml in the SecureBuild repository.
-# DB_URI is set in docker-compose.yml for the Swarm stack (omit here unless you need an override).
+# DB_URI is set in docker-compose.yml for the Compose dev stack (omit here unless you need an override).
 
 registry_image_prefix: ghcr.io/your-org/securebuild
 registry_username: your-registry-user
 registry_password: your-registry-token-or-password
 
-apk_repository: http://localhost:8080  # apk-proxy (published on 8080 in docker-compose)
+apk_repository: http://apk-proxy:8880  # apk-proxy (available on 8880 in docker-compose)
 
-apk_public_key_name: cve0-signing.rsa.pub
+apk_public_key_name: dev-signing.rsa.pub
 apk_public_key_data: "<base64 data>"  # replace: base64-encoded public key PEM
 apk_signing_key_data: "<base64 data>"  # replace: base64-encoded private key PEM
-apk_signing_key_name: cve0-signing.rsa.key
+apk_signing_key_name: dev-signing.rsa.key
 
 r2_endpoint: https://s3.example.com
 r2_access_key: replace-me  # replace with your R2 or S3 access key
 r2_secret_key: replace-me  # replace with your R2 or S3 secret key
+r2_region: us-east-1 # leave blank for Cloudflare R2
 r2_bucket_name: securebuild
-r2_feed_bucket_name: securebuild-feeds
-r2_use_path_style: false
+r2_use_path_style: true
 
 build_backend: local
+
+# Pipeline files: Docker Compose mounts repo dev-pipelines/ here — keep this path.
+pipeline_dir: /var/run/securebuild/pipelines
 
 auth_method: password
 admin_user_email: admin@example.com      # only if SMTP is not configured in the app
@@ -124,7 +143,8 @@ log_level: info`}</HelpBlock>
 
       <DocsH3 id="example-env-local">Example: securebuild-app/.env.local</DocsH3>
       <HelpBlock>{`# securebuild-app/.env.local (web app — password auth; dev defaults)
-# DB_URI is set in docker-compose.yml for the app container.
+# DB_URI and PIPELINE_DIR are set in docker-compose.yml for the Compose app container.
+# For npm run dev on the host, set PIPELINE_DIR to an absolute path to repo dev-pipelines/.
 
 HMAC_SECRET=dev-only-secret
 
@@ -132,15 +152,19 @@ REGISTRY_IMAGE_PREFIX=ghcr.io/your-org/securebuild
 
 AUTH_METHOD=password
 
-NEXT_PUBLIC_APK_REPOSITORY=http://localhost:8080  # apk-proxy on host
+PIPELINE_DIR=/absolute/path/to/securebuild/dev-pipelines
+
+NEXT_PUBLIC_APK_REPOSITORY=http://apk-proxy:8880  # apk-proxy on host
 `}</HelpBlock>
       <DocsP>
         <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">docker-compose.yml</code> sets{" "}
-        <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">DB_URI</code> for worker and app in the Swarm
-        stack, so you do not need it in these files for <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">make dev-stack-up</code>. Use{" "}
+        <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">DB_URI</code> and{" "}
+        <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">PIPELINE_DIR</code> for the app, and{" "}
+        <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">DB_URI</code> for the worker, in the Compose stack;
+        you do not need those in these files for <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">make dev-stack-up</code>. Use{" "}
         <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">admin_user_email</code> and{" "}
-        <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">admin_user_password</code> in the YAML only when
-        the app does not have SMTP configured—otherwise omit them and use email-based setup flows.
+        <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">admin_user_password</code> in the YAML when
+        the app does not have SMTP configured or if you just want to use a single pre-defined user—otherwise omit them and use email-based setup flows.
       </DocsP>
 
       <DocsH3>Start dev environment</DocsH3>
@@ -191,14 +215,14 @@ NEXT_PUBLIC_APK_REPOSITORY=http://localhost:8080  # apk-proxy on host
   run-oci-proxy  - Run the OCI proxy service
   run-apk-proxy  - Run the APK proxy service`}</HelpBlock>
 
-      <DocsH3 id="help-dev-stack">Local Dev Stack (Docker Swarm)</DocsH3>
-      <HelpBlock>{`Local Dev Stack (Docker Swarm):
-  dev-stack-up   - Build images and start the full dev stack in Docker Swarm
+      <DocsH3 id="help-dev-stack">Local Dev Stack (Docker Compose)</DocsH3>
+      <HelpBlock>{`Local Dev Stack (Docker Compose):
+  dev-stack-up   - Build images and start the full dev stack (docker compose)
   dev-stack-down - Stop and remove the dev stack
-  dev-worker     - Scale down worker, open shell with DB_URI set; restores on exit
-  dev-app        - Scale down app, open shell in securebuild-app/ with DB_URI set; restores on exit
-  dev-apk-proxy  - Scale down apk-proxy, open shell with DB_URI set; restores on exit
-  dev-oci-proxy  - Scale down oci-proxy, open shell with DB_URI set; restores on exit
+  dev-worker     - Stop worker in the stack, open shell with DB_URI set; restores on exit
+  dev-app        - Stop app in the stack, open shell in securebuild-app/ with DB_URI set; restores on exit
+  dev-apk-proxy  - Stop apk-proxy in the stack, open shell with DB_URI set; restores on exit
+  dev-oci-proxy  - Stop oci-proxy in the stack, open shell with DB_URI set; restores on exit
   dev-migrate    - Open shell with DB_URI set; run 'make migrate' inside`}</HelpBlock>
 
       <DocsH3 id="help-database">Database</DocsH3>
