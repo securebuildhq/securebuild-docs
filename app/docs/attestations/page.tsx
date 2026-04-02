@@ -89,10 +89,10 @@ export default function AttestationsPage() {
           Vulnerability Reporting
         </Link>
         <Link
-          href="/docs/config"
+          href="/docs/self-hosted"
           className="group flex items-center gap-2 text-sm font-medium hover:text-primary transition-colors"
         >
-          Configuration
+          Self-hosted Overview
           <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
         </Link>
       </div>
